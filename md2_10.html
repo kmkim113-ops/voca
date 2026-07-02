@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>씨유에탑 중등2-10 단어장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#2563EB;--primary-dark:#1D4ED8;--primary-light:#EFF6FF;--success:#10B981;--danger:#EF4444;--warn:#F59E0B;--gray:#6B7280;--border:#E5E7EB;--bg:#F9FAFB;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:"Noto Sans KR",sans-serif;background:var(--bg);max-width:420px;margin:0 auto;min-height:100vh;}
+.en{font-family:"Nunito",sans-serif;}
+.header{background:var(--primary);color:#fff;padding:14px 16px 10px;position:sticky;top:0;z-index:100;}
+.header-brand{font-family:"Nunito",sans-serif;font-weight:800;font-size:15px;}
+.header-sub{font-size:12px;opacity:.8;margin-top:2px;}
+.tabs{display:flex;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:58px;z-index:99;}
+.tab{flex:1;padding:10px 4px;text-align:center;font-size:11px;color:var(--gray);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:.2s;}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:700;}
+.range-bar{display:flex;gap:6px;padding:10px 12px;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.range-bar::-webkit-scrollbar{display:none;}
+.rbtn{flex-shrink:0;padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:11px;cursor:pointer;font-family:"Nunito",sans-serif;color:var(--gray);transition:.2s;white-space:nowrap;}
+.rbtn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.search-wrap{padding:10px 12px;background:#fff;border-bottom:1px solid var(--border);}
+.search-input{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:"Noto Sans KR",sans-serif;outline:none;}
+.search-input:focus{border-color:var(--primary);}
+.filter-bar{display:flex;gap:6px;padding:8px 12px;background:#fff;border-bottom:1px solid var(--border);}
+.fbtn{padding:4px 12px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:11px;cursor:pointer;color:var(--gray);transition:.2s;}
+.fbtn.active{background:var(--primary-light);color:var(--primary);border-color:var(--primary);font-weight:700;}
+.word-list{padding:8px 12px 24px;display:flex;flex-direction:column;gap:8px;}
+.wcard{background:#fff;border-radius:12px;padding:12px 14px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;transition:.3s;}
+.wcard.known{opacity:.35;}
+.wc-chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.2s;color:transparent;font-size:13px;}
+.wc-chk.on{background:var(--success);border-color:var(--success);color:#fff;}
+.wc-body{flex:1;min-width:0;}
+.wc-word{font-family:"Nunito",sans-serif;font-weight:700;font-size:15px;color:#1e293b;}
+.wc-mean{font-size:12px;color:var(--gray);margin-top:2px;}
+.wc-acts{display:flex;gap:4px;flex-shrink:0;}
+.ibtn{background:none;border:none;cursor:pointer;font-size:17px;padding:4px;line-height:1;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.fc-wrap{padding:16px 12px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;}
+.fc-counter{font-size:12px;color:var(--gray);font-family:"Nunito",sans-serif;}
+.fc-card{width:100%;background:#fff;border-radius:20px;border:2px solid var(--border);min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px;text-align:center;cursor:pointer;position:relative;box-shadow:0 2px 10px rgba(0,0,0,.07);user-select:none;-webkit-user-select:none;}
+.fc-word{font-family:"Nunito",sans-serif;font-weight:800;font-size:28px;color:#1e293b;}
+.fc-mean{font-size:17px;color:var(--primary);font-weight:700;margin-top:14px;}
+.fc-hint{font-size:11px;color:var(--gray);margin-top:10px;}
+.fc-fav{position:absolute;top:14px;right:16px;font-size:22px;cursor:pointer;line-height:1;}
+.fc-nav{display:flex;gap:8px;width:100%;}
+.fc-nav-btn{flex:1;padding:13px 8px;border:none;border-radius:12px;background:var(--primary);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:"Nunito",sans-serif;transition:.15s;}
+.fc-nav-btn:active{opacity:.8;}
+.fc-nav-btn.sec{background:#e2e8f0;color:#475569;}
+.qwrap{padding:16px 12px 24px;}
+.qprow{display:flex;justify-content:space-between;font-size:12px;color:var(--gray);font-family:"Nunito",sans-serif;margin-bottom:6px;}
+.qpbar{height:6px;background:var(--border);border-radius:3px;margin-bottom:14px;}
+.qpfill{height:100%;background:var(--primary);border-radius:3px;transition:.3s;}
+.quiz-q{background:#fff;border-radius:16px;padding:24px 16px;text-align:center;margin-bottom:14px;border:2px solid var(--border);}
+.quiz-qw{font-family:"Nunito",sans-serif;font-weight:800;font-size:26px;color:#1e293b;}
+.quiz-opts{display:flex;flex-direction:column;gap:10px;}
+.qopt{padding:14px;background:#fff;border:2px solid var(--border);border-radius:12px;font-size:14px;cursor:pointer;text-align:center;transition:.2s;}
+.qopt.correct{background:#d1fae5;border-color:var(--success);color:#065f46;font-weight:700;}
+.qopt.wrong{background:#fee2e2;border-color:var(--danger);color:#991b1b;}
+.qresult{text-align:center;padding:40px 16px;}
+.qscore{font-family:"Nunito",sans-serif;font-size:52px;font-weight:800;color:var(--primary);}
+.qrestart{margin-top:20px;padding:14px 32px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:"Nunito",sans-serif;}
+.twrap{padding:16px 12px 24px;}
+.tsetup{background:#fff;border-radius:16px;padding:20px;border:2px solid var(--border);}
+.tsetup h3{font-size:16px;font-weight:700;margin-bottom:16px;}
+.tlabel{font-size:12px;color:var(--gray);margin-bottom:4px;font-weight:500;}
+.tinput{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:"Noto Sans KR",sans-serif;outline:none;margin-bottom:12px;}
+.tinput:focus{border-color:var(--primary);}
+.tstart{width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;font-family:"Nunito",sans-serif;}
+.tprow{display:flex;justify-content:space-between;font-size:12px;color:var(--gray);font-family:"Nunito",sans-serif;margin-bottom:6px;}
+.tpbar{height:6px;background:var(--border);border-radius:3px;margin-bottom:14px;}
+.tpfill{height:100%;background:var(--primary);border-radius:3px;transition:.3s;}
+.tqcard{background:#fff;border-radius:16px;padding:24px 16px;border:2px solid var(--border);text-align:center;margin-bottom:14px;}
+.tqword{font-family:"Nunito",sans-serif;font-weight:800;font-size:26px;color:#1e293b;}
+.tqhint{font-size:11px;color:var(--gray);margin-top:6px;}
+.tainput{width:100%;padding:12px;border:2px solid var(--border);border-radius:12px;font-size:16px;font-family:"Noto Sans KR",sans-serif;outline:none;margin-bottom:10px;}
+.tainput:focus{border-color:var(--primary);}
+.tnext{width:100%;padding:13px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:"Nunito",sans-serif;}
+.tresult{background:#fff;border-radius:16px;padding:24px;border:2px solid var(--border);}
+.trswrap{text-align:center;margin-bottom:20px;}
+.trscore{font-family:"Nunito",sans-serif;font-size:52px;font-weight:800;color:var(--primary);}
+.trpct{font-size:20px;color:var(--gray);font-family:"Nunito",sans-serif;margin-top:4px;}
+.trwt{font-weight:700;margin-bottom:8px;}
+.trwi{padding:10px 12px;background:#fff5f5;border-left:3px solid var(--danger);border-radius:6px;margin-bottom:8px;font-size:12px;}
+.trwiw{font-family:"Nunito",sans-serif;font-weight:700;font-size:13px;margin-bottom:2px;}
+.trcl{font-size:11px;color:var(--gray);margin-top:12px;line-height:1.9;}
+.trbtns{display:flex;gap:8px;margin-top:16px;}
+.trkakao{flex:1;padding:12px;background:#25D366;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;}
+.trretry{flex:1;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;}
+.empty{text-align:center;padding:40px 16px;color:var(--gray);font-size:13px;}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-brand en">씨유에탑 ✦ 영어단어장</div>
+  <div class="header-sub">중등2-10 · 총 200단어</div>
+</div>
+<div class="tabs">
+  <div class="tab active" id="tb-list" onclick="switchTab('list')">📚 단어목록</div>
+  <div class="tab" id="tb-flash" onclick="switchTab('flash')">🃏 플래시카드</div>
+  <div class="tab" id="tb-quiz" onclick="switchTab('quiz')">🎯 퀴즈</div>
+  <div class="tab" id="tb-test" onclick="switchTab('test')">📝 테스트</div>
+</div>
+<div id="tab-list" class="tab-content active">
+  <div class="range-bar" id="lrbar"></div>
+  <div class="search-wrap"><input class="search-input" id="srch" placeholder="🔍 단어 또는 뜻으로 검색..." oninput="renderList()"></div>
+  <div class="filter-bar">
+    <button class="fbtn active" id="fb-all" onclick="setFilter('all')">전체</button>
+    <button class="fbtn" id="fb-unknown" onclick="setFilter('unknown')">모름</button>
+    <button class="fbtn" id="fb-fav" onclick="setFilter('fav')">⭐ 즐겨찾기</button>
+  </div>
+  <div class="word-list" id="wlist"></div>
+</div>
+<div id="tab-flash" class="tab-content">
+  <div class="range-bar" id="fcrbar"></div>
+  <div class="fc-wrap">
+    <div class="fc-counter en" id="fcctr">1 / 1</div>
+    <div class="fc-card" id="fccard">
+      <div class="fc-fav" id="fcfav" onclick="fcFav()">☆</div>
+      <div class="fc-word en" id="fcword"></div>
+      <div class="fc-mean" id="fcmean" style="display:none"></div>
+      <div class="fc-hint" id="fchint">탭하면 뜻이 보여요</div>
+    </div>
+    <div class="fc-nav">
+      <button class="fc-nav-btn sec" onclick="fcPrev()">◀ 이전</button>
+      <button class="fc-nav-btn" style="background:var(--warn);" onclick="speakFc()">🔊</button>
+      <button class="fc-nav-btn" onclick="fcNext()">다음 ▶</button>
+    </div>
+  </div>
+</div>
+<div id="tab-quiz" class="tab-content"><div class="qwrap" id="qwrap"></div></div>
+<div id="tab-test" class="tab-content"><div class="twrap" id="twrap"></div></div>
+
+<script>
+var SERIES = "중등2-10";
+var rawWords = [{"word": "product", "meaning": "상품"}, {"word": "goods", "meaning": "상품"}, {"word": "merchandise", "meaning": "상품"}, {"word": "produce", "meaning": "상품(농산물)"}, {"word": "experience", "meaning": "경험"}, {"word": "go through", "meaning": "겪다, 경험하다"}, {"word": "undergo", "meaning": "겪다"}, {"word": "weak", "meaning": "약한, 힘이 없는"}, {"word": "delicate", "meaning": "약한"}, {"word": "fragile", "meaning": "약한, 부서지기 쉬운"}, {"word": "hearing", "meaning": "청력, 청각"}, {"word": "sight", "meaning": "시력"}, {"word": "hurt", "meaning": "다치게하다"}, {"word": "injure", "meaning": "부상을 입히다"}, {"word": "wound", "meaning": "부상을 입히다"}, {"word": "scar", "meaning": "상처"}, {"word": "understand", "meaning": "이해하다"}, {"word": "comprehend", "meaning": "이해하다"}, {"word": "figure out", "meaning": "이해하다"}, {"word": "grasp", "meaning": "이해하다, 잡다"}, {"word": "station", "meaning": "역, 정류장"}, {"word": "stop", "meaning": "역, 정류장"}, {"word": "answer", "meaning": "대답하다"}, {"word": "respond", "meaning": "응답하다, 대답하다"}, {"word": "reply", "meaning": "대답하다"}, {"word": "during", "meaning": "(전치사) ~동안"}, {"word": "while", "meaning": "(접속사) ~동안"}, {"word": "same", "meaning": "같은"}, {"word": "identical", "meaning": "동일한"}, {"word": "equivalent", "meaning": "동등한"}, {"word": "equal", "meaning": "동등한"}, {"word": "point of view", "meaning": "관점"}, {"word": "viewpoint", "meaning": "관점"}, {"word": "perspective", "meaning": "관점"}, {"word": "in danger", "meaning": "위험에 처한"}, {"word": "be tired of", "meaning": "~에 싫증난"}, {"word": "be fed up with", "meaning": "~에 싫증난"}, {"word": "be sick of", "meaning": "~에 싫증난"}, {"word": "low-floor bus", "meaning": "저상 버스"}, {"word": "low", "meaning": "낮은"}, {"word": "high", "meaning": "높은"}, {"word": "comfortably", "meaning": "편안하게"}, {"word": "follow", "meaning": "따르다"}, {"word": "go after", "meaning": "따르다"}, {"word": "look around", "meaning": "둘러 보다"}, {"word": "put on", "meaning": "~을 입다, 착용하다"}, {"word": "cold", "meaning": "냉정한"}, {"word": "realistic", "meaning": "냉정한, 현실적인"}, {"word": "flat", "meaning": "평평한"}, {"word": "even", "meaning": "고른, 평평한, ~조차"}, {"word": "little", "meaning": "어린"}, {"word": "young", "meaning": "어린, 젊은"}, {"word": "hood", "meaning": "(외투에 달린) 모자"}, {"word": "scene", "meaning": "장면, 현장"}, {"word": "sight", "meaning": "장면"}, {"word": "site", "meaning": "현장"}, {"word": "around", "meaning": "~의 주위에, ~쯤에"}, {"word": "near", "meaning": "근처에"}, {"word": "locally", "meaning": "가까이에, 근처에"}, {"word": "close to", "meaning": "가까이에, 근처에"}, {"word": "need", "meaning": "필요로 하다"}, {"word": "require", "meaning": "필요로 하다"}, {"word": "demand", "meaning": "요구하다"}, {"word": "look into", "meaning": "안을 들여다보다"}, {"word": "investigate", "meaning": "조사하다"}, {"word": "inquiry", "meaning": "조사하다"}, {"word": "blow", "meaning": "(입으로) 불다"}, {"word": "breathe", "meaning": "(입김을) 불다"}, {"word": "chicken", "meaning": "닭고기, 닭"}, {"word": "beef", "meaning": "소고기"}, {"word": "pork", "meaning": "돼지고기"}, {"word": "piggy", "meaning": "돼지"}, {"word": "piggy bank", "meaning": "돼지저금통"}, {"word": "in front of", "meaning": "~의 앞에"}, {"word": "ahead of", "meaning": "~의 앞에"}, {"word": "before", "meaning": "(시간상)~전에"}, {"word": "worry", "meaning": "걱정하다"}, {"word": "concern", "meaning": "걱정하다"}, {"word": "feel uneasy", "meaning": "걱정하다"}, {"word": "basket", "meaning": "바구니"}, {"word": "shake", "meaning": "흔들거리다, 흔들다"}, {"word": "swing", "meaning": "흔들다"}, {"word": "sway", "meaning": "흔들다"}, {"word": "ending", "meaning": "결말"}, {"word": "finish", "meaning": "끝, 결말"}, {"word": "conclusion", "meaning": "결론"}, {"word": "take a break", "meaning": "휴식을 취하다"}, {"word": "take a rest", "meaning": "휴식을 취하다"}, {"word": "rest", "meaning": "휴식을 취하다"}, {"word": "go away", "meaning": "가 버리다"}, {"word": "walk away", "meaning": "떠나버리다"}, {"word": "laugh", "meaning": "웃다"}, {"word": "laugh at", "meaning": "비웃다"}, {"word": "giggle", "meaning": "킥킥 웃다"}, {"word": "work", "meaning": "효과가 있다"}, {"word": "effective", "meaning": "효과가 있는"}, {"word": "blow one’s nose", "meaning": "코를 풀다"}, {"word": "talk to oneself", "meaning": "혼잣말하다"}, {"word": "by the way", "meaning": "그런데, 그건 그렇고"}, {"word": "well", "meaning": "(화제를 바꿀 때) 그런데"}, {"word": "never", "meaning": "결코~않다"}, {"word": "work of art", "meaning": "예술 작품"}, {"word": "artwork", "meaning": "예술작품"}, {"word": "group work", "meaning": "모둠 활동"}, {"word": "grade", "meaning": "성적"}, {"word": "results", "meaning": "결과, 성적"}, {"word": "sweets", "meaning": "디저트, 단것"}, {"word": "treat", "meaning": "간식, 취급하다"}, {"word": "refreshment", "meaning": "다과, 간식"}, {"word": "over", "meaning": "끝이 난"}, {"word": "be done", "meaning": "끝이 나다"}, {"word": "be completed", "meaning": "끝이 나다"}, {"word": "uncomfortable", "meaning": "불편한"}, {"word": "inconvenient", "meaning": "불편한"}, {"word": "uneasy", "meaning": "불안한, 우려되는"}, {"word": "youth", "meaning": "청년, 젊은이"}, {"word": "youthful", "meaning": "청춘의"}, {"word": "though", "meaning": "(접) 비록~이지만"}, {"word": "even though", "meaning": "(접) 비록~이지만"}, {"word": "even if", "meaning": "(접) 비록~이지만"}, {"word": "despite", "meaning": "(전) 비록~이지만"}, {"word": "in spite of", "meaning": "(전) 비록~이지만"}, {"word": "as though", "meaning": "마치 ~인것처럼"}, {"word": "as if", "meaning": "마치 ~인것처럼"}, {"word": "wheel", "meaning": "바퀴"}, {"word": "wet", "meaning": "젖은, 축축한"}, {"word": "moist", "meaning": "젖은, 축축한"}, {"word": "damp", "meaning": "젖은, 축축한"}, {"word": "moment", "meaning": "순간, 때"}, {"word": "instant", "meaning": "아주 짧은 때"}, {"word": "lose", "meaning": "패하다"}, {"word": "defeat", "meaning": "이기다"}, {"word": "beat", "meaning": "이기다"}, {"word": "finish", "meaning": "끝내다, 마치다"}, {"word": "complete", "meaning": "끝내다"}, {"word": "conclude", "meaning": "결론짓다"}, {"word": "ring", "meaning": "(종이) 울리다"}, {"word": "chime", "meaning": "(종,시계가) 울리다"}, {"word": "lovely", "meaning": "사랑스러운"}, {"word": "adorable", "meaning": "사랑스러운"}, {"word": "lovable", "meaning": "사랑스러운"}, {"word": "endearing", "meaning": "사랑스러운"}, {"word": "place", "meaning": "놓다, 두다, 장소"}, {"word": "lay", "meaning": "놓다"}, {"word": "put", "meaning": "놓다"}, {"word": "traditional", "meaning": "전통적인"}, {"word": "conventional", "meaning": "전통적인"}, {"word": "antique", "meaning": "고풍스러운"}, {"word": "handwriting", "meaning": "손 글씨"}, {"word": "close", "meaning": "가까이"}, {"word": "P.E. class", "meaning": "체육 수업"}, {"word": "other", "meaning": "다른 것, 그 밖의 것"}, {"word": "exactly", "meaning": "정확하게"}, {"word": "accurately", "meaning": "정확하게"}, {"word": "correctly", "meaning": "정확하게"}, {"word": "delicious", "meaning": "맛있는"}, {"word": "tasty", "meaning": "맛있는"}, {"word": "mouthwatering", "meaning": "군침이 도는"}, {"word": "village", "meaning": "마을"}, {"word": "town", "meaning": "마을"}, {"word": "area", "meaning": "지역"}, {"word": "district", "meaning": "지역"}, {"word": "hide", "meaning": "숨다, 숨기다"}, {"word": "conceal", "meaning": "숨기다"}, {"word": "plastic", "meaning": "플라스틱"}, {"word": "most", "meaning": "대부분의"}, {"word": "almost", "meaning": "거의"}, {"word": "class", "meaning": "수업"}, {"word": "lesson", "meaning": "수업, 교훈"}, {"word": "choose", "meaning": "선택하다"}, {"word": "select", "meaning": "선택하다"}, {"word": "pick", "meaning": "선택하다"}, {"word": "opt", "meaning": "선택하다"}, {"word": "turn", "meaning": "돌리다, 차례"}, {"word": "spin", "meaning": "돌리다"}, {"word": "rotate", "meaning": "회전하다"}, {"word": "roll", "meaning": "굴리다"}, {"word": "dry", "meaning": "마른, 건조한"}, {"word": "recycle bin", "meaning": "재활용 통"}, {"word": "recycle", "meaning": "재활용하다"}, {"word": "reuse", "meaning": "재사용하다"}, {"word": "contest", "meaning": "대회, 시합"}, {"word": "match", "meaning": "대회, 시합, 성냥"}, {"word": "competition", "meaning": "대회, 시합"}, {"word": "wave", "meaning": "흔들다"}, {"word": "wave one’s hand", "meaning": "손을 흔들다"}, {"word": "look back (on)", "meaning": "뒤돌아보다"}, {"word": "recall", "meaning": "회상하다"}, {"word": "recollect", "meaning": "회상하다"}, {"word": "retrospect", "meaning": "회상하다"}, {"word": "be on time", "meaning": "시간을 잘 지키다"}, {"word": "add A to B", "meaning": "A를 B에 더하다"}, {"word": "cut A into B", "meaning": "A를 B로 자르다"}, {"word": "in such a way that", "meaning": "~와 같은 방법으로"}, {"word": "up to", "meaning": "~까지"}, {"word": "come out", "meaning": "나오다"}, {"word": "up and down", "meaning": "위아래로, 이리저리"}, {"word": "upside down", "meaning": "거꾸로"}, {"word": "get some rest", "meaning": "휴식을 취하다"}, {"word": "get together", "meaning": "모으다, 모이다"}];
+var SK = "cutop_jungdeung210";
+
+function loadStore(){try{return JSON.parse(localStorage.getItem(SK)||"{}");}catch(e){return {};}}
+function saveStore(s){try{localStorage.setItem(SK,JSON.stringify(s));}catch(e){}}
+var store=loadStore();
+function sk(w){return w.word+"|"+w.meaning;}
+
+function speak(t){
+  if(!("speechSynthesis" in window))return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(t);
+  u.lang="en-US";u.rate=0.85;
+  window.speechSynthesis.speak(u);
+}
+function speakFc(){speak(document.getElementById("fcword").textContent);}
+
+function buildRanges(ws){
+  var r=[{label:"전체",s:0,e:ws.length}];
+  for(var i=0;i<ws.length;i+=50){r.push({label:(i+1)+"-"+Math.min(i+50,ws.length),s:i,e:Math.min(i+50,ws.length)});}
+  return r;
+}
+var ranges=buildRanges(rawWords);
+
+function renderRangeBar(id,ai,cb){
+  var el=document.getElementById(id);if(!el)return;
+  el.innerHTML=ranges.map(function(r,i){
+    return '<button class="rbtn'+(i===ai?" active":"")+'" onclick="'+cb+"("+i+')">' +r.label+"</button>";
+  }).join("");
+}
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+var curTab="list";
+function switchTab(t){
+  curTab=t;
+  ["list","flash","quiz","test"].forEach(function(n){
+    document.getElementById("tb-"+n).classList.toggle("active",n===t);
+    document.getElementById("tab-"+n).classList.toggle("active",n===t);
+  });
+  if(t==="list"){renderRangeBar("lrbar",lri,"setLR");renderList();}
+  if(t==="flash"){renderRangeBar("fcrbar",fri,"setFR");initFC();}
+  if(t==="quiz"){initQuiz();}
+  if(t==="test"){renderSetup();}
+}
+
+var lri=0,lf="all",lwords=[];
+function setLR(i){lri=i;renderRangeBar("lrbar",i,"setLR");renderList();}
+function setFilter(f){
+  lf=f;
+  ["all","unknown","fav"].forEach(function(x){document.getElementById("fb-"+x).classList.toggle("active",x===f);});
+  renderList();
+}
+function renderList(){
+  var r=ranges[lri];
+  var ws=rawWords.slice(r.s,r.e);
+  var q=(document.getElementById("srch").value||"").toLowerCase();
+  if(q)ws=ws.filter(function(w){return w.word.toLowerCase().indexOf(q)>=0||w.meaning.indexOf(q)>=0;});
+  if(lf==="unknown")ws=ws.filter(function(w){return !store[sk(w)]||store[sk(w)].status!=="known";});
+  if(lf==="fav")ws=ws.filter(function(w){return store[sk(w)]&&store[sk(w)].fav;});
+  lwords=ws;
+  var el=document.getElementById("wlist");
+  if(!ws.length){el.innerHTML='<div class="empty">표시할 단어가 없어요</div>';return;}
+  el.innerHTML=ws.map(function(w,i){
+    var k=sk(w);
+    var kn=store[k]&&store[k].status==="known";
+    var fv=store[k]&&store[k].fav;
+    var safeW=w.word.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+    return '<div class="wcard'+(kn?" known":"")+'" id="wc'+i+'">'+
+      '<div class="wc-chk'+(kn?" on":"")+'" onclick="toggleKn('+i+')">✔</div>'+
+      '<div class="wc-body">'+
+        '<div class="wc-word en">'+esc(w.word)+'</div>'+
+        '<div class="wc-mean">'+esc(w.meaning)+'</div>'+
+      '</div>'+
+      '<div class="wc-acts">'+
+        '<button class="ibtn" onclick="speak(\''+safeW+'\')">🔊</button>'+
+        '<button class="ibtn" id="fvb'+i+'" onclick="toggleFv('+i+')">'+(fv?"★":"☆")+'</button>'+
+      '</div>'+
+    '</div>';
+  }).join("");
+}
+function toggleKn(i){
+  var w=lwords[i];var k=sk(w);
+  if(!store[k])store[k]={};
+  store[k].status=(store[k].status==="known")?"":"known";
+  saveStore(store);renderList();
+}
+function toggleFv(i){
+  var w=lwords[i];var k=sk(w);
+  if(!store[k])store[k]={};
+  store[k].fav=!store[k].fav;
+  saveStore(store);
+  var el=document.getElementById("fvb"+i);
+  if(el)el.textContent=store[k].fav?"★":"☆";
+}
+
+var fri=0,fcws=[],fci=0,fcFlipped=false,fcTX=0;
+function setFR(i){fri=i;renderRangeBar("fcrbar",i,"setFR");initFC();}
+function initFC(){
+  var r=ranges[fri];
+  fcws=rawWords.slice(r.s,r.e);
+  fci=0;fcFlipped=false;renderFC();
+}
+function renderFC(){
+  if(!fcws.length)return;
+  var w=fcws[fci];
+  document.getElementById("fcword").textContent=w.word;
+  document.getElementById("fcmean").textContent=w.meaning;
+  document.getElementById("fcmean").style.display="none";
+  document.getElementById("fchint").style.display="";
+  document.getElementById("fcctr").textContent=(fci+1)+" / "+fcws.length;
+  var k=sk(w);
+  document.getElementById("fcfav").textContent=(store[k]&&store[k].fav)?"★":"☆";
+  fcFlipped=false;
+}
+function fcFlip(){
+  if(fcFlipped)return;
+  fcFlipped=true;
+  document.getElementById("fcmean").style.display="";
+  document.getElementById("fchint").style.display="none";
+  speak(fcws[fci].word);
+}
+function fcNext(){if(fci<fcws.length-1){fci++;renderFC();}}
+function fcPrev(){if(fci>0){fci--;renderFC();}}
+function fcFav(){
+  var w=fcws[fci];var k=sk(w);
+  if(!store[k])store[k]={};
+  store[k].fav=!store[k].fav;
+  saveStore(store);
+  document.getElementById("fcfav").textContent=store[k].fav?"★":"☆";
+}
+
+var qws=[],qi=0,qs=0,qLocked=false;
+function shuffle(a){
+  var b=a.slice();
+  for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}
+  return b;
+}
+function initQuiz(){
+  qws=shuffle(rawWords).slice(0,10);
+  qi=0;qs=0;qLocked=false;renderQuiz();
+}
+function renderQuiz(){
+  var el=document.getElementById("qwrap");
+  if(qi>=qws.length){
+    var pct=Math.round(qs/qws.length*100);
+    var em=pct===100?"🏆":pct>=80?"🎉":pct>=60?"👍":"💪";
+    el.innerHTML='<div class="qresult"><div style="font-size:48px">'+em+'</div><div class="qscore en">'+qs+' / '+qws.length+'</div><div style="font-size:16px;margin-top:6px;color:var(--gray)">'+pct+'점</div><button class="qrestart" onclick="initQuiz()">↩ 다시 풀기</button></div>';
+    return;
+  }
+  var w=qws[qi];
+  var pct2=Math.round(qi/qws.length*100);
+  var opts=shuffle(shuffle(rawWords.filter(function(x){return x.meaning!==w.meaning;})).slice(0,3).concat([w]));
+  el.innerHTML=
+    '<div class="qprow"><span class="en">'+(qi+1)+' / '+qws.length+'</span><span class="en">✅ '+qs+'</span></div>'+
+    '<div class="qpbar"><div class="qpfill" style="width:'+pct2+'%"></div></div>'+
+    '<div class="quiz-q"><div class="quiz-qw en">'+esc(w.word)+'</div></div>'+
+    '<div class="quiz-opts">'+
+    opts.map(function(o){
+      var cor=o.meaning===w.meaning;
+      return '<div class="qopt" data-cor="'+(cor?1:0)+'" onclick="qAns(this)">'+esc(o.meaning)+'</div>';
+    }).join("")+
+    '</div>';
+}
+function qAns(el){
+  if(qLocked)return;
+  qLocked=true;
+  document.querySelectorAll(".qopt").forEach(function(o){o.style.pointerEvents="none";});
+  var cor=el.getAttribute("data-cor")==="1";
+  el.classList.add(cor?"correct":"wrong");
+  if(cor){qs++;speak(qws[qi].word);}
+  setTimeout(function(){qi++;qLocked=false;renderQuiz();},1000);
+}
+
+var tri=0,tname="",tws=[],ti=0,tscore=0,tcor=[],twrong=[];
+function renderSetup(){
+  var rh=ranges.map(function(r,i){
+    return '<button class="rbtn'+(i===tri?" active":"")+'" onclick="setTR('+i+')">'+r.label+"</button>";
+  }).join("");
+  document.getElementById("twrap").innerHTML=
+    '<div class="tsetup">'+
+    '<h3>📝 단어 테스트</h3>'+
+    '<div class="tlabel">이름</div>'+
+    '<input class="tinput" id="tni" placeholder="이름을 입력하세요" value="'+esc(tname)+'">'+
+    '<div class="tlabel">범위</div>'+
+    '<div class="range-bar" style="padding:0;margin-bottom:12px;">'+rh+'</div>'+
+    '<div class="tlabel" style="margin-bottom:8px">문제 수: <strong>50문제</strong> (완전 랜덤)</div>'+
+    '<button class="tstart" onclick="startTest()">테스트 시작 ▶</button>'+
+    '</div>';
+}
+function setTR(i){tri=i;renderSetup();}
+function startTest(){
+  var nm=(document.getElementById("tni").value||"").trim();
+  if(!nm){alert("이름을 입력해주세요");return;}
+  tname=nm;
+  var r=ranges[tri];
+  var pool=rawWords.slice(r.s,r.e);
+  tws=shuffle(pool).slice(0,Math.min(50,pool.length));
+  ti=0;tscore=0;tcor=[];twrong=[];renderTQ();
+}
+function renderTQ(){
+  if(ti>=tws.length){renderTResult();return;}
+  var w=tws[ti];
+  var pct=Math.round(ti/tws.length*100);
+  speak(w.word);
+  document.getElementById("twrap").innerHTML=
+    '<div class="tprow"><span class="en">'+(ti+1)+' / '+tws.length+'</span><span class="en">✅ '+tscore+'</span></div>'+
+    '<div class="tpbar"><div class="tpfill" style="width:'+pct+'%"></div></div>'+
+    '<div class="tqcard"><div class="tqword en">'+esc(w.word)+'</div><div class="tqhint">한글 뜻을 입력하세요</div></div>'+
+    '<input class="tainput" id="tans" placeholder="뜻 입력..." autocomplete="off">'+
+    '<button class="tnext" onclick="submitTA()">확인 / 다음 ▶</button>';
+  setTimeout(function(){
+    var inp=document.getElementById("tans");
+    if(inp){inp.focus();inp.addEventListener("keydown",function(e){if(e.key==="Enter")submitTA();});}
+  },80);
+}
+function isSim(input,correct){
+  var norm=function(s){return s.replace(/\s/g,"").replace(/[~\-·,]/g,"").toLowerCase();};
+  var a=norm(input),c=norm(correct);
+  if(a===c)return true;
+  if(a.length>=2&&c.indexOf(a)>=0)return true;
+  var core=c.replace(/하다|되다|시키다|이다/g,"").trim();
+  if(core.length>=2&&a.indexOf(core)>=0)return true;
+  return false;
+}
+function submitTA(){
+  var inp=document.getElementById("tans");if(!inp)return;
+  var ans=inp.value.trim();
+  var w=tws[ti];
+  if(isSim(ans,w.meaning)){tscore++;tcor.push(w.word);}
+  else{twrong.push({word:w.word,inp:ans,cor:w.meaning});}
+  ti++;renderTQ();
+}
+function renderTResult(){
+  var total=tws.length;
+  var pct=Math.round(tscore/total*100);
+  var em=pct===100?"🏆":pct>=80?"🎉":pct>=60?"👍":"💪";
+  var wh=twrong.map(function(x){
+    return '<div class="trwi"><div class="trwiw en">'+esc(x.word)+'</div><div style="color:var(--danger)">입력: '+esc(x.inp||"(없음)")+" / 정답: "+esc(x.cor)+"</div></div>";
+  }).join("");
+  document.getElementById("twrap").innerHTML=
+    '<div class="tresult">'+
+    '<div class="trswrap"><div style="font-size:44px">'+em+'</div><div class="trscore en">'+tscore+' / '+total+'</div><div class="trpct">'+pct+'점</div></div>'+
+    '<div class="trwt">❌ 틀린 단어 ('+twrong.length+'개)</div>'+
+    (wh||'<div style="color:var(--success);margin-bottom:8px">모두 맞혔어요! 🎉</div>')+
+    '<div class="trcl">✅ 맞은 단어: '+esc(tcor.join(", "))+'</div>'+
+    '<div class="trbtns">'+
+      '<button class="trkakao" onclick="copyR()">📋 카톡으로 결과 복사</button>'+
+      '<button class="trretry" onclick="renderSetup()">↩ 다시 테스트</button>'+
+    '</div></div>';
+}
+function copyR(){
+  var total=tws.length;
+  var pct=Math.round(tscore/total*100);
+  var today=new Date().toLocaleDateString("ko-KR");
+  var wl=twrong.map(function(x){return "  "+x.word+" → 입력:"+(x.inp||"(없음)")+" / 정답:"+x.cor;}).join("\n");
+  var txt="[씨유에탑 "+SERIES+"] 테스트 결과\n날짜: "+today+"\n이름: "+tname+"\n점수: "+tscore+"/"+total+" ("+pct+"점)\n─────────────────\n❌ 틀린 단어 ("+twrong.length+"개)\n"+wl+"\n─────────────────\n✅ 맞은 단어: "+tcor.join(", ");
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){alert("복사됐어요! 카톡에 붙여넣으세요 😊");}).catch(function(){prompt("복사하세요:",txt);});
+  }else{prompt("복사하세요:",txt);}
+}
+
+renderRangeBar("lrbar",0,"setLR");
+renderList();
+initFC();
+(function(){
+  var card=document.getElementById("fccard");
+  card.addEventListener("click",function(e){
+    if(e.target.id==="fcfav")return;
+    fcFlip();
+  });
+  card.addEventListener("touchstart",function(e){fcTX=e.touches[0].clientX;},{passive:true});
+  card.addEventListener("touchend",function(e){
+    var dx=e.changedTouches[0].clientX-fcTX;
+    if(Math.abs(dx)>50){if(dx<0)fcNext();else fcPrev();}
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
